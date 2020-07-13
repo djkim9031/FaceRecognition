@@ -19,13 +19,13 @@ path = 'attendance/data'
 images = []
 classNames = []
 myList = os.listdir(path)
-#print(myList)
+
 for cl in myList:
     if cl.endswith('.jpg'):
         curImg = cv2.imread(f'{path}/{cl}')
         images.append(curImg)
         classNames.append(os.path.splitext(cl)[0])
-#print(classNames)
+
 
 def findEncodings(images):
     encodeList = []
@@ -85,14 +85,11 @@ class ThreadedCamera(object):
                     
                     if matches[matchIdx]:
                         name = classNames[matchIdx].upper()
-                        #markAttendance(name)
+                        markAttendance(name)
                         cv2.rectangle(self.frame,(faceLoc[1],faceLoc[2]),(faceLoc[3],faceLoc[0]),(0,0,255),2)
                         cv2.putText(self.frame,f'{name}',(faceLoc[3],faceLoc[0]+10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
-                        #self.count+=1
-      
-            #if self.count>10:
-            #    print("break out")
-            #    break
+                        
+
             time.sleep(self.FPS)
 
     def show_frame(self):
@@ -107,14 +104,3 @@ while True:
     except AttributeError:
         pass
 
-#cap = cv2.VideoCapture('attendance/trailer.mov')
-
-#while True:
-    #_,frame = cap.read()
-    #frame = cv2.resize(frame,(0,0),None,0.5,0.5)
-    #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    
-    #faceLoc = face_recognition.face_locations(imgTaylor)[0]
-    #encode = face_recognition.face_encodings(img)[0]
-    #cv2.imshow("trailer",frame)
-    #cv2.waitKey(1000)
